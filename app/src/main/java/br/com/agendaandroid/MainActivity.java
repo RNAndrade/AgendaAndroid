@@ -1,6 +1,7 @@
 package br.com.agendaandroid;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.agendaandroid.adapter.AlunosAdapter;
 import br.com.agendaandroid.dao.AlunoDAO;
 import br.com.agendaandroid.model.Aluno;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaAlunos = (ListView)findViewById(R.id.lista_alunos);
+        listaAlunos = findViewById(R.id.lista_alunos);
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View item, int position, long id) {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonNewAluno = (Button)findViewById(R.id.main_bt_new);
+        FloatingActionButton buttonNewAluno = findViewById(R.id.main_bt_new);
         buttonNewAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.listar();
         dao.close();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
+        AlunosAdapter adapter = new AlunosAdapter(this, alunos);
         listaAlunos.setAdapter(adapter);
     }
 
